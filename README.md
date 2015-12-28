@@ -47,4 +47,28 @@ To exercise the test, which uses an in memory H2 instead of the Oracle instance,
 $ mvn test
 ```
 
+## Oracle JDBC dependencies
+
+Since the Oracle JDBC/XDB jars are not publicly available, you will have to source the jars for the dependencies below from your own Oracle installation. You can then install them into your local Maven repo or install into your companies Maven repo of choice (Sonatype Nexus, etc.)
+
+You will need the equivalent dependencies from your Oracle installation for the following:
+
+```
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>ojdbc6</artifactId>
+    <version>12.1.0.1</version>
+</dependency>
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>xdb6</artifactId>
+    <version>11.2.0.3.0</version>
+</dependency>
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>xmlparserv2</artifactId>
+    <version>11.1.1.2.0</version>
+</dependency>
+```
+
 
