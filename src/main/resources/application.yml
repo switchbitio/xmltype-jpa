@@ -1,0 +1,16 @@
+spring:
+
+  datasource:
+    url: jdbc:oracle:thin:@(description=(address=(protocol=tcp)(host=oracle.db)(port=49161))(connect_data=(service_name=xe)))
+    username: system
+    password: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    database-platform: io.switchbit.persistence.OracleXmlDialect
+    database: ORACLE
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+

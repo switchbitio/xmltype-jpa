@@ -1,0 +1,11 @@
+<order>
+    <customer>Bob Smith</customer>
+    <orderItem>
+        <sku>SB123</sku>
+        <price>99.99</price>
+    </orderItem>
+    <orderItem>
+        <sku>SB456</sku>
+        <price>44.44</price>
+    </orderItem>
+</order>
