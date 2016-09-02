@@ -27,17 +27,13 @@ import io.switchbit.domain.Order;
 public class OrderUserType implements UserType {
 
     private static JAXBContext jaxbContext;
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
 
     {
-        jaxbContext = JAXBContext.newInstance(Order.class);
-    }
-
-    public OrderUserType() throws JAXBException {
-        unmarshaller = jaxbContext.createUnmarshaller();
-        marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(JAXB_ENCODING, UTF_8.name());
+        try {
+            jaxbContext = JAXBContext.newInstance(Order.class);
+        } catch (Exception e){
+            throw new RuntimeException("Cannot initialize JAXBContext", e);
+        }
     }
 
     @Override
@@ -70,6 +66,7 @@ public class OrderUserType implements UserType {
         Order document = null;
         if (xmlType != null) {
             try {
+                final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
                 document = unmarshaller.unmarshal(xmlType.getDocument(), Order.class).getValue();
             } catch (JAXBException e) {
                 throw new SQLException("Could not unmarshal Order", e);
@@ -127,6 +124,9 @@ public class OrderUserType implements UserType {
     }
 
     protected String jaxbToString(final Object value) throws JAXBException {
+        final Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(JAXB_ENCODING, UTF_8.name());
+
         StringWriter stringWriter = new StringWriter();
         marshaller.marshal(value, stringWriter);
 
