@@ -26,21 +26,17 @@ public class H2OracleXmlDialect extends Oracle10gDialect {
     }
 
     private void registerTypes(final TypeContributions typeContributions) {
-        try {
-            typeContributions.contributeType(new OrderUserType() {
+        typeContributions.contributeType(new OrderUserType() {
 
-                @Override
-                public void nullSafeSet(final PreparedStatement statement, final Object value, final int index, final SessionImplementor session) throws SQLException {
-                    try {
-                        statement.setObject(index, jaxbToString(value));
-                    } catch (JAXBException e) {
-                        throw new SQLException("Could not set test Order", e);
-                    }
+            @Override
+            public void nullSafeSet(final PreparedStatement statement, final Object value, final int index, final SessionImplementor session) throws SQLException {
+                try {
+                    statement.setObject(index, jaxbToString(value));
+                } catch (JAXBException e) {
+                    throw new SQLException("Could not set test Order", e);
                 }
-            }, new String[]{"Order"});
-        } catch (JAXBException e) {
-            throw new RuntimeException("Error registering Hibernate custom JAXB types", e);
-        }
+            }
+        }, new String[]{"Order"});
     }
 
 }
